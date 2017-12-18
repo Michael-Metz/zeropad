@@ -1,11 +1,11 @@
 # Table of Contents
 1. [Introduction](#introduction)
-2. [License](#license)
-3. [Set Up & Installation](#setup-and-installation)
-4. [Usage](#usage)
-5. [Examples](#examples) 
-7. [Caution](#caution)
-5. [What Exactly The Script Does](#what-exactly-the-script-does)
+2. [Set Up & Installation](#setup-and-installation)
+3. [Usage](#usage)
+4. [Examples](#examples) 
+5. [Caution](#caution)
+6. [What Exactly The Script Does](#what-exactly-the-script-does)
+7. [License](#license)
 
 <a name="introduction"></a>
 # Introduction
@@ -34,12 +34,6 @@ B
 +-- .
 +-- 12321.jpg
 ```
-
-
-<a name="license"></a>
-# License
-
-TODO free liscense
 
 <a name="setup-and-installation"></a>
 # Set Up & Installation
@@ -129,3 +123,29 @@ my-images
 1. Counts how many files are in the directory
 2. Checks if the this count can be represented in *n* digits
 3. Loops through files alphabetically and renames them taking parameters and flags into consideration
+
+<a name="license"></a>
+# License
+
+MIT License
+
+Copyright (c) 2017 MIchael Metz
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+© 2017 GitHub, Inc.
