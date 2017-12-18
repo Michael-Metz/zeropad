@@ -1,49 +1,48 @@
 #!/bin/bash
 #
-# Developed by Michael Metz 8/10/2017
+# Developed by Michael Metz 12/18/2017
 #
 # ------------------------------------------------------------------------------
 #
-# This script is built on top of Fred Weinhaus mulitcrop script.
-# Fred website is http://www.fmwconcepts.com/imagemagick/
-# The liscense for multicrop2 applies as seen below.
+# MIT License
 #
-# Licensing:
+# Copyright (c) 2017 MIchael Metz
 #
-# Copyright © Fred Weinhaus
+# Permission is hereby granted, free of charge, to any person obtaining a copy
+# of this software and associated documentation files (the "Software"), to deal
+# in the Software without restriction, including without limitation the rights
+# to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+# copies of the Software, and to permit persons to whom the Software is
+# furnished to do so, subject to the following conditions:
 #
-# My scripts are available free of charge for non-commercial use, ONLY.
+# The above copyright notice and this permission notice shall be included in all
+# copies or substantial portions of the Software.
 #
-# For use of my scripts in commercial (for-profit) environments or
-# non-free applications, please contact me (Fred Weinhaus) for
-# licensing arrangements. My email address is fmw at alink dot net.
-#
-# If you: 1) redistribute, 2) incorporate any of these scripts into other
-# free applications or 3) reprogram them in another scripting language,
-# then you must contact me for permission, especially if the result might
-# be used in a commercial or for-profit environment.
-#
-# This script is also subject, in a subordinate manner, to the ImageMagick
-# license, which can be found at: http://www.imagemagick.org/script/license.php
+# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+# IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+# FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+# AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+# LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+# OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+# SOFTWARE
 #
 # ------------------------------------------------------------------------------
 #
 ####
 #
-# USAGE: newspaper-multicrop [image] [image_mask] [grid-value]
+# USAGE: zeropad [-p prepend-text] [-a append-text] [num-digits]
 #
-# ARGUMENTS:
-
-# image       -  image that contains multiple newspaper clips
-# image_mask  -  mask of image^ (use photoshop,gimp or multicrop to make)
-# grid-value  -  Integer value passed to multicrop. High values i.e 10
-#                Low values i.e 4 will take longer to process but will
-#                find large and smaller news clippings.
-#                [0 < gv < 100]"
-
+# |FLAGS|
+# [-p prepend-text] : text to add before the zeropadded number.
+# [-a append-text]  : text to add after the zeropadded number. 
+#                     Typically the extension of the file. ex. -a .jpg
 #
-# NOTE: This script depends on multicrop and imagemagick. Make sure both
-# are installed be trying to run this script.
+# |ARGUMENTS|
+# [num-digits] : how many digits places the number should use. Integer value 0 < v < 16.
+#
+# CAUTION: zeropad loops through directory files alphabetically.
+#          Thus renaming the files in alphabetical order. Therefore be careful
+#          if you want your sequence to have a particular order in the end.
 #
 #
 ######
@@ -55,14 +54,21 @@ starttime=$(date +%s)
 usage()
 {
   echo "------------------------------------------------------------"
-  echo "USAGE: zeropad [num-digits] -p -a"
+  echo "USAGE: zeropad [-p prepend-text] [-a append-text] [num-digits]"
   echo ""
-  echo "ARGUMENTS"; echo ""
-  echo "num-of-digits  -  image that contains multiple newspaper clips"
-  echo "                   mask of image^ (use photoshop,gimp or multicrop to make)"
-  echo "                   Integer value passed to multicrop. High values i.e 10"
+  echo "|FLAGS|
+  echo "[-p prepend-text] : text to add before the zeropadded number."
+  echo "[-a append-text]  : text to add after the zeropadded number."
+  echo "                     Typically the extension of the file. ex. -a .jpg"
+  echo """
+  echo "|ARGUMENTS|"
+  echo "[num-digits] : how many digits places the number should use. Integer value 0 < v < 16."
   echo ""
-  echo "$1"
+  echo "CAUTION: zeropad loops through directory files alphabetically."
+  echo "         Thus renaming the files in alphabetical order. Therefore be careful"
+  echo "         if you want your sequence to have a particular order in the end."
+  echo ""
+  echo ""
   exit 0
 }
 
