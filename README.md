@@ -11,7 +11,7 @@
 # Introduction
 `zeropad` is a bash shell script that renames all files in the currenty directory to a zeropadded sequence
 
-zeropadded squences allow each file name in a directory to use the same width. For example compare directoy `A`, containing a non zeropadded sequence, to directory `B`, which contains a zeropadded sequence.
+zero-padded sequences allow each file name in a directory to use the same width. For example compare directory `A`, containing a non-zero-padded sequence, to directory `B`, which contains a zero-padded sequence.
 
 ```
 A
@@ -98,11 +98,11 @@ Consider a directory `my-images` that contains the following files
 my-images
 +
 |-- Gorilla.jpg
-|-- Squille.jpg
+|-- squirrel.jpg
 |-- Tree.jpg
 ```
 
-```sh
+```
 #command
 cd my-images
 zeropad -p nature_ -a .jpg 4
@@ -119,9 +119,9 @@ my-images
 `zeropad` loops through directory files alphabetically.  Thus renaming the files in alphabetical order.  Therefore be careful if you want your sequence to have a particular order in the end.
 
 <a name="what-exactly-the-script-does"></a>
-# What the scripts does
+# What the script does
 1. Counts how many files are in the directory
-2. Checks if the this count can be represented in *n* digits
+2. Checks if this count can be represented in *n* digits
 3. Loops through files alphabetically and renames them taking parameters and flags into consideration
 
 <a name="license"></a>
@@ -129,7 +129,7 @@ my-images
 
 MIT License
 
-Copyright (c) 2017 MIchael Metz
+Copyright (c) 2017 Michael Metz
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
