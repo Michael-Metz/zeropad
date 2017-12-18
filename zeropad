@@ -1,0 +1,150 @@
+#!/bin/bash
+#
+# Developed by Michael Metz 8/10/2017
+#
+# ------------------------------------------------------------------------------
+#
+# This script is built on top of Fred Weinhaus mulitcrop script.
+# Fred website is http://www.fmwconcepts.com/imagemagick/
+# The liscense for multicrop2 applies as seen below.
+#
+# Licensing:
+#
+# Copyright © Fred Weinhaus
+#
+# My scripts are available free of charge for non-commercial use, ONLY.
+#
+# For use of my scripts in commercial (for-profit) environments or
+# non-free applications, please contact me (Fred Weinhaus) for
+# licensing arrangements. My email address is fmw at alink dot net.
+#
+# If you: 1) redistribute, 2) incorporate any of these scripts into other
+# free applications or 3) reprogram them in another scripting language,
+# then you must contact me for permission, especially if the result might
+# be used in a commercial or for-profit environment.
+#
+# This script is also subject, in a subordinate manner, to the ImageMagick
+# license, which can be found at: http://www.imagemagick.org/script/license.php
+#
+# ------------------------------------------------------------------------------
+#
+####
+#
+# USAGE: newspaper-multicrop [image] [image_mask] [grid-value]
+#
+# ARGUMENTS:
+
+# image       -  image that contains multiple newspaper clips
+# image_mask  -  mask of image^ (use photoshop,gimp or multicrop to make)
+# grid-value  -  Integer value passed to multicrop. High values i.e 10
+#                Low values i.e 4 will take longer to process but will
+#                find large and smaller news clippings.
+#                [0 < gv < 100]"
+
+#
+# NOTE: This script depends on multicrop and imagemagick. Make sure both
+# are installed be trying to run this script.
+#
+#
+######
+#
+#stats
+starttime=$(date +%s)
+
+#validate arguments
+usage()
+{
+  echo "------------------------------------------------------------"
+  echo "USAGE: zeropad [num-digits] -p -a"
+  echo ""
+  echo "ARGUMENTS"; echo ""
+  echo "num-of-digits  -  image that contains multiple newspaper clips"
+  echo "                   mask of image^ (use photoshop,gimp or multicrop to make)"
+  echo "                   Integer value passed to multicrop. High values i.e 10"
+  echo ""
+  echo "$1"
+  exit 0
+}
+
+prependText=""
+appendText=""
+#make sure there is five arguments
+if [ $# -eq 0 ]
+	then
+    usage ""
+elif [ $# -gt 7 ]
+	then
+	  usage "You inputted $# arguments. At most 7 can be used"
+else
+	while [ $# -gt 0 ]
+		do
+			# get parameter values
+			case "$1" in
+		  -h|-help)    # help information
+					   usage ""
+					   ;;
+				-p)    # center
+					   shift  # to get the next parameter
+					   prependText="$1"
+					   ;;
+			   	-a)    # units
+					   shift  # to get the next parameter
+					   appendText="$1"
+					   ;;
+
+				 -)    # STDIN and end of arguments
+					   break
+					   ;;
+				-*)    # any other - argument
+					   usage "$1 is an Invalid flag"
+					   ;;
+		     	 *)    # end of arguments
+					   break
+					   ;;
+			esac
+			shift   # next option
+	done
+	#
+	# get infile and outfile
+	numDigits="$1"
+fi
+
+#validate number of zeros
+case ${numDigits#[-+]} in
+  *[!0-9]* | '') usage  "num-digits must be an integer" ;;
+  *) if [ "$numDigits" -le 0 ] || [ "$numDigits" -gt 16 ]; then
+      usage  "num-digits $numDigits is not valid.  Must be an integer greater than 0 and less/equal then 16"
+  fi ;;
+esac
+
+
+#Count how files we need to rename
+numFiles=$((0))
+for file in *; do
+  numFiles=$((numFiles+1))
+done
+
+#check if we can represent all the files with the desired zeropadded digits
+filesWeCanForm=$((10 ** numDigits))
+if [ "$numFiles" -gt "$filesWeCanForm" ]; then
+  usage "with $numDigits digit we can name $filesWeCanForm files. This folder contains $numFiles. try increasing the number of zeros"
+fi
+
+#generate a zeropad number for each file and rename it
+counter=$((0))
+for file in *;do
+  formatString="%0$numDigits"
+  d="d"
+  formatString="$formatString$d"
+  printf -v number "$formatString" $counter
+
+  mv "$file" "$prependText$number$appendText"
+  counter=$((counter+1))
+done
+
+
+
+#output stats
+endtime=`date +%s`
+
+echo "renamed $fileCount in $((endtime - starttime)) seconds"
