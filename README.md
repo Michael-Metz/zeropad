@@ -54,7 +54,7 @@ $ # Move script to folder
 $ mv zeropad/zeropad $HOME/bin/michael-metz/
 $ rm -rf zeropad
 ```
-##### Make the srcipt executable
+##### Make the script executable
 ```sh
 $ sudo chmod -R +x $HOME/bin/michael-metz/
 ```
